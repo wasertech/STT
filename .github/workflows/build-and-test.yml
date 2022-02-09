@@ -1565,6 +1565,9 @@ jobs:
       - run: ./ci_scripts/package.sh
       - run: ./ci_scripts/tf-package.sh
         if: steps.check_artifact_exists.outputs.status == 'missing'
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: failure()
       - uses: actions/upload-artifact@v2
         with:
           name: "native_client.tflite.macOS.${{ matrix.arch }}.tar.xz"
